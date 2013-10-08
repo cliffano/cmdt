@@ -1,0 +1,10 @@
+{
+  "commands": {
+    "run": {
+      "desc": "Execute test files",
+      "examples": [
+        "cmdt run test1.cmdt test2.cmdt test3.cmdt"
+      ]
+    }
+  }
+}

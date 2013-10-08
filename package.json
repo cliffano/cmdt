@@ -1,0 +1,51 @@
+{
+  "name": "cmdt",
+  "description": "Command-line tools testing tool",
+  "keywords": [
+    "test",
+    "cli",
+    "command-line"
+  ],
+  "version": "0.0.1",
+  "homepage": "http://github.com/cliffano/cmdt",
+  "author": "Cliffano Subagio <blah@cliffano.com> (http://blog.cliffano.com)",
+  "contributors": [
+    "All contributors (https://github.com/cliffano/cmdt/graphs/contributors)"
+  ],
+  "main": "./lib/cmdt",
+  "bin": {
+    "cmdt": "./bin/cmdt"
+  },
+  "preferGlobal": true,
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/cliffano/cmdt.git"
+  },
+  "bugs": {
+    "url": "http://github.com/cliffano/cmdt/issues"
+  },
+  "directories": {
+    "bin": "./bin",
+    "lib": "./lib",
+    "test": "./test"
+  },
+  "dependencies": {
+    "async": "~0.2.9",
+    "bagofcli": "~0.0.5",
+    "colors": "~0.6.2",
+    "lazy": "~1.0.11"
+  },
+  "devDependencies": {
+    "buster": "~0.6.12"
+  },
+  "scripts": {},
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/cliffano/cmdt/raw/master/LICENSE"
+    }
+  ]
+}
