@@ -2,6 +2,9 @@
   "commands": {
     "run": {
       "desc": "Execute test files",
+      "options": [
+        { "arg": "-d, --debug", "desc": "Display command output on test failures" }
+      ],
       "examples": [
         "cmdt run test1.cmdt test2.cmdt test3.cmdt"
       ]
