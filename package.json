@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "async": "~0.2.9",
-    "bagofcli": "~0.0.5",
+    "bagofcli": "~0.0.6",
     "colors": "~0.6.2",
     "lazy": "~1.0.11"
   },
