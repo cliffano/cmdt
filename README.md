@@ -9,6 +9,10 @@
 Cmdt
 ----
 
+Cmdt is a command-line tool for testing command-line tools.
+
+This is handy for testing a command execution result by checking its exit code and output.
+
 Installation
 ------------
 
@@ -16,3 +20,32 @@ Installation
 
 Usage
 -----
+
+Run tests on specified .cmdt files:
+
+    cmdt run <file1>.cmdt <file2>.cmdt
+
+Run all .cmdt test files contained in a directory:
+
+    cmdt run <dir>
+
+Debug exit code and output of failing tests:
+
+    cmdt run --debug <file>.cmdt <dir>
+
+Configuration
+-------------
+
+Specify test command, expected exit code and/or output regular expression in a .cmdt file:
+
+    command: whoami
+    exitcode: 0
+    output: someuser
+
+    command: time
+    exitcode: 0
+    output: real.+user.+sys.+
+
+    command: unknowncommand
+    exitcode: 1
+    output: ^some error$
