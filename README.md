@@ -33,10 +33,10 @@ Debug exit code and output of failing tests:
 
     cmdt run --debug <file>.cmdt <dir>
 
-Configuration
--------------
+Test File
+---------
 
-Specify test command, expected exit code and/or output regular expression in a .cmdt file:
+Set test command, expected exit code and/or output regular expression in a .cmdt file:
 
     command: whoami
     exitcode: 0
