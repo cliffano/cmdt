@@ -1,4 +1,7 @@
-### 0.0.4-pre
+### 0.0.5-pre
+*
+
+### 0.0.4
 * Change test file format to YAML
 * Command execution error no longer results in cmdt error
 * Log temporary directory on debug
