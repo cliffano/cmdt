@@ -1,5 +1,5 @@
 ### 0.0.5-pre
-*
+* Fix sample test file on README.
 
 ### 0.0.4
 * Change test file format to YAML
