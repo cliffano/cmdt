@@ -1,0 +1,3 @@
+command: unknowncommand
+exitcode: 0
+output: ^some error$
