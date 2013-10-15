@@ -1,0 +1,7 @@
+command: cmdt init
+output: Creating example test files
+
+description: Erronous commands should result in success
+command: cmdt run failure.cmdt
+exitcode: 0
+output: 1 tests, 0 success, 1 failure
