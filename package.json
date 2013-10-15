@@ -35,6 +35,7 @@
     "colors": "~0.6.2",
     "lazy": "~1.0.11",
     "mkdirp": "~0.3.5",
+    "ncp": "~0.4.2",
     "rimraf": "~2.2.2"
   },
   "devDependencies": {

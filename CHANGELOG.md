@@ -1,6 +1,7 @@
 ### 0.0.4-pre
 * Command execution error no longer results in cmdt error
 * Log temporary directory on debug
+* Add init command
 
 ### 0.0.3
 * Sandbox test executions to a temporary directory

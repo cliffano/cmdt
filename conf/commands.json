@@ -1,5 +1,8 @@
 {
   "commands": {
+    "init": {
+      "desc": "Create sample test files"
+    },
     "run": {
       "desc": "Execute test files",
       "options": [
