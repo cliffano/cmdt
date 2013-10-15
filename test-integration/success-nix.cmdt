@@ -1,7 +1,0 @@
-command: cmdt init
-output: Creating example test files
-
-description: Non-erronous commands should result in success
-command: cmdt run success-nix.cmdt
-exitcode: 0
-output: 3 tests, 3 successes, 0 failure

@@ -21,34 +21,35 @@ Installation
 Usage
 -----
 
-Run tests on specified .cmdt files:
+Run tests on specified test files:
 
-    cmdt run <file1>.cmdt <file2>.cmdt
+    cmdt run <file1>.yml <file2>.yml
 
-Run all .cmdt test files contained in a directory:
+Run all test files contained in a directory:
 
     cmdt run <dir>
 
 Debug exit code and output of failing tests, temporary directory will be logged and won't be removed at the end of the execution:
 
-    cmdt run --debug <file>.cmdt <dir>
+    cmdt run --debug <file>.yml <dir>
 
 Test File
 ---------
 
-Set test command, expected exit code and/or output regular expression in a .cmdt file:
+Set test command, expected exit code and/or output regular expression in a .yml file:
 
-    command: whoami
-    exitcode: 0
-    output: someuser
+    -- description: should display user name
+       command: whoami
+       exitcode: 0
+       output: someuser
 
-    command: time
-    exitcode: 0
-    output: real.+user.+sys.+
+    -- command: time
+       exitcode: 0
+       output: real.+(\r\n?|\n)user.+
 
-    command: unknowncommand
-    exitcode: 1
-    output: ^some error$
+    -- command: unknowncommand
+       exitcode: 1
+       output: ^some error$
 
 Fields
 ------
