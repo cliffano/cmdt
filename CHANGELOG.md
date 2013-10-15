@@ -1,4 +1,7 @@
-### 0.0.3-pre
+### 0.0.4-pre
+*
+
+### 0.0.3
 * Sandbox test executions to a temporary directory
 * Add description field
 
