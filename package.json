@@ -33,7 +33,9 @@
     "async": "~0.2.9",
     "bagofcli": "~0.0.8",
     "colors": "~0.6.2",
-    "lazy": "~1.0.11"
+    "lazy": "~1.0.11",
+    "mkdirp": "~0.3.5",
+    "rimraf": "~2.2.2"
   },
   "devDependencies": {
     "buster-node": "~0.7.0",
