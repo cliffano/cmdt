@@ -3,7 +3,7 @@ exitcode: 0
 
 command: time
 exitcode: 0
-output: real.+user.+sys.+
+output: real.+(\r\n?|\n)user.+
 
 command: unknowncommand
 exitcode: 127
