@@ -1,4 +1,7 @@
-### 0.0.5-pre
+### 0.0.6-pre
+*
+
+### 0.0.5
 * Fix sample test file on README.
 
 ### 0.0.4
