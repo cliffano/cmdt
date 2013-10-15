@@ -62,22 +62,22 @@ Fields
   </tr>
   <tr>
     <td>description</td>
-    <td>the description of the test</td>
+    <td>description of the test</td>
     <td>No</td>
   </tr>
   <tr>
     <td>command</td>
-    <td>the command line to be executed</td>
+    <td>command line to be executed</td>
     <td>Yes</td>    
   </tr>
   <tr>
     <td>exitcode</td>
-    <td>the expected exit code</td>
+    <td>expected exit code</td>
     <td>No</td>
   </tr>
   <tr>
     <td>output</td>
-    <td>the stdout + stderr output, supports regexp matching</td>
+    <td>stdout + stderr output, supports regexp matching</td>
     <td>No</td>
   </tr>
 </table>
@@ -85,5 +85,5 @@ Fields
 Screenshots
 -----------
 
-![Success with directory arg screenshot](../blob/master/screenshots/success-dir.jpg?raw=true)
-![Failure with file arg on debug mode screenshot](../blob/master/screenshots/failure-file-debug.jpg?raw=true)
+[![Success with directory arg screenshot](../master/screenshots/success-dir.jpg?raw=true)]
+[![Failure with file arg on debug mode screenshot](../master/screenshots/failure-file-debug.jpg?raw=true)]
