@@ -38,18 +38,18 @@ Test File
 
 Set test command, expected exit code and/or output regular expression in a .yml file:
 
-    -- description: should display user name
-       command: whoami
-       exitcode: 0
-       output: someuser
+    - description: should display user name
+      command: whoami
+      exitcode: 0
+      output: someuser
 
-    -- command: time
-       exitcode: 0
-       output: real.+(\r\n?|\n)user.+
+    - command: time
+      exitcode: 0
+      output: real.+(\r\n?|\n)user.+
 
-    -- command: unknowncommand
-       exitcode: 1
-       output: ^some error$
+    - command: unknowncommand
+      exitcode: 1
+      output: ^some error$
 
 Fields
 ------
