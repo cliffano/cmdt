@@ -11,7 +11,7 @@ Cmdt
 
 Cmdt is a command-line tool for testing command-line tools.
 
-This is handy for testing a command execution result by checking its exit code and output.
+This is handy for testing a command execution result by checking its exit code and output. Commands will be executed in a temporary directory /tmp/cmdt-<millis>-<pid>/<filepath> .
 
 Installation
 ------------
@@ -29,7 +29,7 @@ Run all .cmdt test files contained in a directory:
 
     cmdt run <dir>
 
-Debug exit code and output of failing tests:
+Debug exit code and output of failing tests, temporary directory will be logged and won't be removed at the end of the execution:
 
     cmdt run --debug <file>.cmdt <dir>
 
@@ -49,3 +49,25 @@ Set test command, expected exit code and/or output regular expression in a .cmdt
     command: unknowncommand
     exitcode: 1
     output: ^some error$
+
+Fields
+------
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>command</td>
+    <td>the command to be executed</td>
+  </tr>
+  <tr>
+    <td>exitcode</td>
+    <td>the expected exit code</td>
+  </tr>
+  <tr>
+    <td>output</td>
+    <td>the stdout + stderr output, supports regexp matching</td>
+  </tr>
+</table>
