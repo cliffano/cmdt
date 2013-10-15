@@ -3,6 +3,7 @@
 * Command execution error no longer results in cmdt error
 * Log temporary directory on debug
 * Add init command
+* Use the number of test failures as cmdt exit code
 
 ### 0.0.3
 * Sandbox test executions to a temporary directory
