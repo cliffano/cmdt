@@ -85,5 +85,5 @@ Fields
 Screenshots
 -----------
 
-[![Success with directory arg screenshot](../master/screenshots/success-dir.jpg?raw=true)]
-[![Failure with file arg on debug mode screenshot](../master/screenshots/failure-file-debug.jpg?raw=true)]
+![Success with directory arg screenshot](../master/screenshots/success-dir.jpg?raw=true)
+![Failure with file arg on debug mode screenshot](../master/screenshots/failure-file-debug.jpg?raw=true)
