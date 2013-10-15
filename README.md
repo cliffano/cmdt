@@ -81,3 +81,9 @@ Fields
     <td>No</td>
   </tr>
 </table>
+
+Screenshots
+-----------
+
+![Success with directory arg screenshot](../blob/master/screenshots/success-dir.jpg?raw=true)
+![Failure with file arg on debug mode screenshot](../blob/master/screenshots/failure-file-debug.jpg?raw=true)
