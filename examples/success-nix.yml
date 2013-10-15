@@ -1,0 +1,10 @@
+- command: whoami
+  exitcode: 0
+
+- command: time
+  exitcode: 0
+  output: real.+(\r\n?|\n)user.+
+
+- command: unknowncommand
+  exitcode: 127
+  output: .*command not found.*
