@@ -4,7 +4,8 @@
   "keywords": [
     "test",
     "cli",
-    "command-line"
+    "command-line",
+    "cli integration test"
   ],
   "version": "0.0.6",
   "homepage": "http://github.com/cliffano/cmdt",
