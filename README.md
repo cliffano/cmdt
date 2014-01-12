@@ -2,6 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/cliffano/cmdt.png?branch=master)](http://travis-ci.org/cliffano/cmdt)
 [![Dependencies Status](https://david-dm.org/cliffano/cmdt.png)](http://david-dm.org/cliffano/cmdt)
+[![Coverage Status](https://coveralls.io/repos/cliffano/cmdt/badge.png?branch=master)](https://coveralls.io/r/cliffano/cmdt?branch=master)
 [![Published Version](https://badge.fury.io/js/cmdt.png)](http://badge.fury.io/js/cmdt)
 <br/>
 [![npm Badge](https://nodei.co/npm/cmdt.png)](http://npmjs.org/package/cmdt)
