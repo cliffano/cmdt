@@ -52,8 +52,22 @@ Set test command, expected exit code and/or output regular expression in a .yml 
       exitcode: 1
       output: ^some error$
 
-Fields
-------
+Parameters can also be specified, and used in test command:
+
+    - params:
+        first_name: 'Theodore'
+        last_name: 'Twombly'
+        url: 'http://localhost'
+
+    - command: 'echo "Hey {first_name} {last_name}!"'
+      exitcode: 0
+      output: 'echo "Hey Theodore Twombly!"'
+
+    - command: 'wget {url}'
+      exitcode: 0
+
+Test Fields
+-----------
 
 <table>
   <tr>
