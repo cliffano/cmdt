@@ -1,11 +1,11 @@
 var buster  = require('buster-node');
 var fs      = require('fs');
-var parser  = require('../lib/parser');
 var referee = require('referee');
+var test    = require('../lib/test');
 var yamljs  = require('yaml-js');
 var assert  = referee.assert;
 
-buster.testCase('parser - parse', {
+buster.testCase('test - load', {
   setUp: function () {
     this.mockFs     = this.mock(fs);
     this.mockYamljs = this.mock(yamljs);
@@ -15,7 +15,7 @@ buster.testCase('parser - parse', {
   'should add file info to test': function (done) {
     var data = [{ command: 'whoami', description: 'somedesc' }];
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
-    parser.parse('somefile', function (err, tests) {
+    test.load('somefile', function (err, tests) {
       assert.isNull(err);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].file, 'somefile');
@@ -28,7 +28,7 @@ buster.testCase('parser - parse', {
       { command: 'echo "{message}"', description: 'somedesc' }
     ];
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
-    parser.parse('somefile', function (err, tests) {
+    test.load('somefile', function (err, tests) {
       assert.isNull(err);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].command, 'echo "some message"');
@@ -40,7 +40,7 @@ buster.testCase('parser - parse', {
       { command: 'echo "{message}"', description: 'somedesc' }
     ];
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
-    parser.parse('somefile', function (err, tests) {
+    test.load('somefile', function (err, tests) {
       assert.isNull(err);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].command, 'echo ""');
