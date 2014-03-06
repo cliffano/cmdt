@@ -22,6 +22,15 @@ buster.testCase('test - load', {
       done();
     });
   },
+  'should pass empty tests array when YAML file is empty': function (done) {
+    var data = [{ command: 'whoami', description: 'somedesc' }];
+    this.mockYamljs.expects('load').withExactArgs('sometext').returns(null);
+    test.load('somefile', function (err, tests) {
+      assert.equals(err, undefined);
+      assert.equals(tests.length, 0);
+      done();
+    });
+  },
   'should merge parameters into command': function (done) {
     var data = [
       { params: { message: 'some message' }},
