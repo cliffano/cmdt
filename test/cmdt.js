@@ -31,19 +31,25 @@ buster.testCase('cmdt - run', {
     this.mockTimer    = this.useFakeTimers();
   },
   'should create run directory, emit to reporter, and clean up run directory': function (done) {
+
     this.mockReporter.expects('emit').withArgs('dir', false, 'somebasedir/cmdt-1-' + process.pid);
-    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
     this.mockReporter.expects('emit').withExactArgs('segment', 'x.yml');
-    this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, []);
     this.mockReporter.expects('emit').withExactArgs('segment', 'y.yml');
-    this.mockTest.expects('load').withArgs('y.yml').callsArgWith(1, null, []);
     this.mockReporter.expects('emit').withExactArgs('end', false);
+
+    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
     this.mockRimraf.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
+
+    this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, []);
+    this.mockTest.expects('load').withArgs('y.yml').callsArgWith(1, null, []);
+    
     this.mockTimer.tick(1);
+
     var cmdt = new Cmdt({
       baseDir: 'somebasedir',
       debug: false
     });
+
     cmdt.run([ 'x.yml', 'y.yml' ], function (err, result) {
       assert.isNull(err);
       assert.defined(result.successes);
@@ -52,35 +58,47 @@ buster.testCase('cmdt - run', {
     });
   },
   'should pass test loading error to callback': function (done) {
+    
     this.mockReporter.expects('emit').withArgs('dir', false, 'somebasedir/cmdt-1-' + process.pid);
-    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
     this.mockReporter.expects('emit').withExactArgs('segment', 'x.yml');
-    this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, []);
     this.mockReporter.expects('emit').withExactArgs('segment', 'y.yml');
+
+    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
+    
+    this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, []);
     this.mockTest.expects('load').withArgs('y.yml').callsArgWith(1, new Error('some error'));
+
     this.mockTimer.tick(1);
+
     var cmdt = new Cmdt({
       baseDir: 'somebasedir',
       debug: false
     });
+
     cmdt.run([ 'x.yml', 'y.yml' ], function (err, result) {
       assert.equals(err.message, 'some error');
       done();
     });
   },
   'should not clean up run directory when debug is true': function (done) {
+
     this.mockReporter.expects('emit').withArgs('dir', true, 'somebasedir/cmdt-1-' + process.pid);
-    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
     this.mockReporter.expects('emit').withExactArgs('segment', 'x.yml');
-    this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, []);
     this.mockReporter.expects('emit').withExactArgs('segment', 'y.yml');
-    this.mockTest.expects('load').withArgs('y.yml').callsArgWith(1, null, []);
     this.mockReporter.expects('emit').withExactArgs('end', true);
+
+    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
+
+    this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, []);
+    this.mockTest.expects('load').withArgs('y.yml').callsArgWith(1, null, []);
+
     this.mockTimer.tick(1);
+    
     var cmdt = new Cmdt({
       baseDir: 'somebasedir',
       debug: true
     });
+
     cmdt.run([ 'x.yml', 'y.yml' ], function (err, result) {
       assert.isNull(err);
       assert.defined(result.successes);
