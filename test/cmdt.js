@@ -1,3 +1,4 @@
+var child    = require('child_process');
 var Cmdt     = require('../lib/cmdt');
 var buster   = require('buster-node');
 var mkdirp   = require('mkdirp');
@@ -105,5 +106,77 @@ buster.testCase('cmdt - run', {
       assert.defined(result.failures);
       done();
     });
+  }
+});
+
+buster.testCase('cmdt - _exec', {
+  setUp: function () {
+    this.mockChild    = this.mock(child);
+    this.mockMkdirp   = this.mock(mkdirp);
+    this.mockTimer    = this.useFakeTimers();
+  },
+  'should register exit and stdout+stderr data event listeners': function (done) {
+
+    var mockExec = {
+      on: function (event, cb) {
+        assert.equals(event, 'exit');
+        cb(0);
+      },
+      stdout: {
+        on: function (event, cb) {
+          assert.equals(event, 'data');
+          cb('somestdoutdata');
+        }
+      },
+      stderr: {
+        on: function (event, cb) {
+          assert.equals(event, 'data');
+          cb('somestderrdata');
+        }
+      }
+    };
+
+    this.mockChild.expects('exec')
+      .withArgs('whoami', { cwd: 'somebasedir/cmdt-1-' + process.pid + '/file1.yml' })
+      .returns(mockExec);
+
+    this.mockTimer.tick(1);
+    
+    var cmdt = new Cmdt({
+      baseDir: 'somebasedir',
+      runId: 'somerunid'
+    });
+
+    var tests = [
+      { command: 'whoami', file: 'file1.yml', exitcode: 111 }
+    ];
+    cmdt._exec(tests);
+    done();
+  }
+});
+
+buster.testCase('cmdt - _testCb', {
+  setUp: function () {
+    this.mockReporter = this.mock(reporter);
+  },
+  'should emit success to reporter when there is no error': function (done) {
+    this.mockReporter.expects('emit').withExactArgs('success', { exitCode: 0, output: 'someoutput' }, { exitcode: 0, output: 'someoutput' });
+
+    var test     = { exitCode: 0, output: 'someoutput' };
+    var exitCode = 0;
+    var output   = 'someoutput';
+
+    var cmdt = new Cmdt();
+    cmdt._testCb(test, exitCode, output, done)();
+  },
+  'should emit failure to reporter when there is an error': function (done) {
+    this.mockReporter.expects('emit').withExactArgs('failure', ['Output does not match expected regexp \'someotheroutput\''], { exitCode: 0, output: 'someotheroutput' }, { exitcode: 0, output: 'someoutput' });
+
+    var test     = { exitCode: 0, output: 'someotheroutput' };
+    var exitCode = 0;
+    var output   = 'someoutput';
+
+    var cmdt = new Cmdt();
+    cmdt._testCb(test, exitCode, output, done)();
   }
 });
