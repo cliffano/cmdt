@@ -5,7 +5,7 @@ var mkdirp   = require('mkdirp');
 var ncp      = require('ncp');
 var referee  = require('referee');
 var rimraf   = require('rimraf');
-var reporter = require('../lib/reporters/cli');
+var reporter = require('../lib/reporters/console');
 var test     = require('../lib/test');
 var assert   = referee.assert;
 
