@@ -160,32 +160,38 @@ buster.testCase('cmdt - _testCb', {
     this.mockReporter = this.mock(reporter);
   },
   'should emit success to reporter when there is no error': function (done) {
-    this.mockReporter.expects('emit').withExactArgs('success', { exitCode: 0, output: 'someoutput' }, { exitcode: 0, output: 'someoutput' });
+    this.mockReporter.expects('emit').withExactArgs('success', { exitCode: 0, file: 'somefile1.yml', output: 'someoutput' }, { exitcode: 0, output: 'someoutput' });
 
-    var test     = { exitCode: 0, output: 'someoutput' };
-    var exitCode = 0;
-    var output   = 'someoutput';
+    var test = { file: 'somefile1.yml', exitCode: 0, output: 'someoutput' };
 
     var cmdt = new Cmdt();
-    cmdt._testCb(test, exitCode, output, done)();
+    cmdt._execData['somefile1.yml'] = {
+      exitCode: 0,
+      output  : 'someoutput'
+    };
+    cmdt._testCb(test, done)();
   },
   'should emit failure to reporter when there is an error': function (done) {
-    this.mockReporter.expects('emit').withExactArgs('failure', ['Output does not match expected regexp \'someotheroutput\''], { exitCode: 0, output: 'someotheroutput' }, { exitcode: 0, output: 'someoutput' });
+    this.mockReporter.expects('emit').withExactArgs('failure', ['Output does not match expected regexp \'someotheroutput\''], { exitCode: 0, file: 'somefile2.yml', output: 'someotheroutput' }, { exitcode: 0, output: 'someoutput' });
 
-    var test     = { exitCode: 0, output: 'someotheroutput' };
-    var exitCode = 0;
-    var output   = 'someoutput';
+    var test = { file: 'somefile2.yml', exitCode: 0, output: 'someotheroutput' };
 
     var cmdt = new Cmdt();
-    cmdt._testCb(test, exitCode, output, done)();
+    cmdt._execData['somefile2.yml'] = {
+      exitCode: 0,
+      output  : 'someoutput'
+    };
+    cmdt._testCb(test, done)();
   },
   'should pass test command execution error to callback': function (done) {
-    var test     = { exitCode: 0, output: 'someotheroutput' };
-    var exitCode = 0;
-    var output   = 'someoutput';
+    var test = { file: 'somefile3.yml', exitCode: 0, output: 'someotheroutput' };
 
     var cmdt = new Cmdt();
-    cmdt._testCb(test, exitCode, output, function (err) {
+    cmdt._execData['somefile3.yml'] = {
+      exitCode: 0,
+      output  : 'someoutput'
+    };
+    cmdt._testCb(test, function (err) {
       assert.equals(err.message, 'some error');
       done();
     })(new Error('some error'));
