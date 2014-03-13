@@ -178,5 +178,16 @@ buster.testCase('cmdt - _testCb', {
 
     var cmdt = new Cmdt();
     cmdt._testCb(test, exitCode, output, done)();
+  },
+  'should pass test command execution error to callback': function (done) {
+    var test     = { exitCode: 0, output: 'someotheroutput' };
+    var exitCode = 0;
+    var output   = 'someoutput';
+
+    var cmdt = new Cmdt();
+    cmdt._testCb(test, exitCode, output, function (err) {
+      assert.equals(err.message, 'some error');
+      done();
+    })(new Error('some error'));
   }
 });
