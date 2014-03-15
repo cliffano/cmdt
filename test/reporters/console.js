@@ -25,41 +25,68 @@ buster.testCase('console - _success _failure _end', {
 
     // should log summary in green text when there is no failure
     this.mockConsole.expects('log').withExactArgs('');
-    this.mockConsole.expects('log').withExactArgs('0 tests, 0 success, 0 failure'.green);
+    this.mockConsole.expects('log').withExactArgs('0 test, 0 success, 0 failure'.green);
     
     reporter.emit('end', false);
 
     // should write a green dot and add test result to successes list
     this.mockStdout.expects('write').withExactArgs('.'.green);
 
-    reporter.emit('success', { file: 'somefile1.yml', command: 'whoami' }, { exitCode: 0 });
+    reporter.emit('success', { file: 'success1.yml', command: 'successcommand1' }, { exitCode: 0 });
 
     assert.equals(reporter.failures.length, 0);
     assert.equals(reporter.successes.length, 1);
-    assert.equals(reporter.successes[0].test.command, 'whoami');
+    assert.equals(reporter.successes[0].test.command, 'successcommand1');
     assert.equals(reporter.successes[0].result.exitCode, 0);
 
-    // should log summary in green text when there is no failure
-    this.mockConsole.expects('log').withExactArgs('');
-    this.mockConsole.expects('log').withExactArgs('1 tests, 1 success, 0 failure'.green);
-    
-    reporter.emit('end', false);
 
     // should write a red dot and add test result to failures list
     this.mockStdout.expects('write').withExactArgs('.'.red);
 
-    reporter.emit('failure', ['someerror1' ], { description: 'somedesc', file: 'somefile2.yml', command: 'whoami' }, { exitCode: 0 });
+    reporter.emit('failure', ['someerror1' ], { description: 'failuredesc1', file: 'failure1.yml', command: 'failurecommand1' }, { exitcode: 10, output: 'failureoutput1' });
 
     assert.equals(reporter.failures.length, 1);
     assert.equals(reporter.failures[0].errors, ['someerror1']);
-    assert.equals(reporter.failures[0].test.command, 'whoami');
-    assert.equals(reporter.failures[0].result.exitCode, 0);
+    assert.equals(reporter.failures[0].test.command, 'failurecommand1');
+    assert.equals(reporter.failures[0].result.exitcode, 10);
 
-    // should log summary in red text when there is failure
+    // should log summary in red text when there is failure, and debug output and exitcode
     this.mockConsole.expects('log').withExactArgs('');
     this.mockConsole.expects('error').withExactArgs('2 tests, 1 success, 1 failure'.red);
-    this.mockConsole.expects('log').withExactArgs('\n---\nsomedesc\n' + 'somefile2.yml'.cyan + '> whoami');
+    this.mockConsole.expects('log').withExactArgs('\n---\nfailuredesc1\n' + 'failure1.yml'.cyan + '> failurecommand1');
     this.mockConsole.expects('error').withExactArgs('someerror1'.red);
+    this.mockConsole.expects('error').withExactArgs('output:\n%s'.grey, 'failureoutput1');
+    this.mockConsole.expects('error').withExactArgs('exitcode: %d'.grey, 10);
+
+    reporter.emit('end', true);
+
+    // emit another success event
+    this.mockStdout.expects('write').withExactArgs('.'.green);
+
+    reporter.emit('success', { file: 'success2.yml', command: 'successcommand2' }, { exitcode: 0 });
+
+    assert.equals(reporter.failures.length, 1);
+    assert.equals(reporter.successes.length, 2);
+    assert.equals(reporter.successes[1].test.command, 'successcommand2');
+    assert.equals(reporter.successes[1].result.exitcode, 0);
+
+    // emit another failure event, but this time without test description
+    this.mockStdout.expects('write').withExactArgs('.'.red);
+
+    reporter.emit('failure', ['someerror2' ], { file: 'failure2.yml', command: 'failurecommand2' }, { exitcode: 10 });
+
+    assert.equals(reporter.failures.length, 2);
+    assert.equals(reporter.failures[1].errors, ['someerror2']);
+    assert.equals(reporter.failures[1].test.command, 'failurecommand2');
+    assert.equals(reporter.failures[1].result.exitcode, 10);
+
+    // emit another end event, should not display description
+    this.mockConsole.expects('log').withExactArgs('');
+    this.mockConsole.expects('error').withExactArgs('4 tests, 2 successes, 2 failures'.red);
+    this.mockConsole.expects('log').withExactArgs('\n---\nfailuredesc1\n' + 'failure1.yml'.cyan + '> failurecommand1');
+    this.mockConsole.expects('error').withExactArgs('someerror1'.red);
+    this.mockConsole.expects('log').withExactArgs('\n---\n' + 'failure2.yml'.cyan + '> failurecommand2');
+    this.mockConsole.expects('error').withExactArgs('someerror2'.red);
 
     reporter.emit('end', false);
 
