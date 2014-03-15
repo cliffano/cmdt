@@ -3,6 +3,7 @@
 * Cmdt no longer breaks when YAML file is empty
 * Fix test command execution error propagation
 * Change min node engine to >= 0.10.0
+* Fix failure debug should show up before summary
 
 ### 0.0.5
 * Fix sample test file on README.
