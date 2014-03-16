@@ -75,6 +75,15 @@ Environment variables are available as _env parameter in test commands:
       exitcode: 0
       output: 'echo "Hello Theodore Twombly!"'
 
+Test fixtures files and directories can be specified in fixtures array, which will then be copied to test execution directory:
+
+    # assuming path/to/data_dir/foobar.txt exists
+    - fixtures:
+      - path/to/data_dir
+
+    - command: 'cat foobar.txt'
+      exitcode: 0
+
 Test Fields
 -----------
 

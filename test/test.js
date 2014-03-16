@@ -15,19 +15,32 @@ buster.testCase('test - load', {
   'should add file info to test': function (done) {
     var data = [{ command: 'whoami', description: 'somedesc' }];
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
-    test.load('somefile', function (err, tests) {
+    test.load('somefile', function (err, tests, fixtures) {
       assert.isNull(err);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].file, 'somefile');
+      assert.equals(fixtures, []);
       done();
     });
   },
-  'should pass empty tests array when YAML file is empty': function (done) {
+  'should pass fixtures to callback if specified in test file': function (done) {
+    var data = [{ fixtures: ['somefixturedir1', 'somefixturedir2'] }, { command: 'whoami', description: 'somedesc' }];
+    this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
+    test.load('somefile', function (err, tests, fixtures) {
+      assert.isNull(err);
+      assert.equals(tests.length, 1);
+      assert.equals(tests[0].file, 'somefile');
+      assert.equals(fixtures, ['somefixturedir1', 'somefixturedir2']);
+      done();
+    });
+  },
+  'should pass empty tests array when test file is empty': function (done) {
     var data = [{ command: 'whoami', description: 'somedesc' }];
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(null);
-    test.load('somefile', function (err, tests) {
+    test.load('somefile', function (err, tests, fixtures) {
       assert.equals(err, undefined);
       assert.equals(tests.length, 0);
+      assert.equals(fixtures, []);
       done();
     });
   },
@@ -37,10 +50,11 @@ buster.testCase('test - load', {
       { command: 'echo "{message}"', description: 'somedesc' }
     ];
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
-    test.load('somefile', function (err, tests) {
+    test.load('somefile', function (err, tests, fixtures) {
       assert.isNull(err);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].command, 'echo "some message"');
+      assert.equals(fixtures, []);
       done();
     });
   },
@@ -51,10 +65,11 @@ buster.testCase('test - load', {
     ];
     this.stub(process, 'env', { foo: 'bar' });
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
-    test.load('somefile', function (err, tests) {
+    test.load('somefile', function (err, tests, fixtures) {
       assert.isNull(err);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].command, 'echo "bar"');
+      assert.equals(fixtures, []);
       done();
     });
   },
@@ -63,10 +78,11 @@ buster.testCase('test - load', {
       { command: 'echo "{message}"', description: 'somedesc' }
     ];
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
-    test.load('somefile', function (err, tests) {
+    test.load('somefile', function (err, tests, fixtures) {
       assert.isNull(err);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].command, 'echo ""');
+      assert.equals(fixtures, []);
       done();
     });
   }
