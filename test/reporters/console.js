@@ -42,7 +42,7 @@ buster.testCase('console - _success _failure _end', {
     // should write a red dot and add test result to failures list
     this.mockStdout.expects('write').withExactArgs('.'.red);
 
-    reporter.emit('failure', ['someerror1' ], { description: 'failuredesc1', file: 'failure1.yml', dir: 'failuredir1', command: 'failurecommand1' }, { exitcode: 10, output: 'failureoutput1' });
+    reporter.emit('failure', ['someerror1' ], { description: 'failuredesc1', file: 'failure1.yml', dir: 'failuredir1', command: 'failurecommand1', output: 'expectedfailureoutput1' }, { exitcode: 10, output: 'failureoutput1' });
 
     assert.equals(reporter.failures.length, 1);
     assert.equals(reporter.failures[0].errors, ['someerror1']);
@@ -55,8 +55,7 @@ buster.testCase('console - _success _failure _end', {
     this.mockConsole.expects('error').withExactArgs('\n----------------\nfailuredesc1\n' + 'failure1.yml'.cyan + '\nfailurecommand1');
     this.mockConsole.expects('error').withExactArgs('someerror1'.red);
     this.mockConsole.expects('error').withExactArgs('exec dir: %s\n'.grey, 'failuredir1');
-    this.mockConsole.expects('error').withExactArgs('exitcode: %d\n'.grey, 10);
-    this.mockConsole.expects('error').withExactArgs('output:\n%s'.grey, 'failureoutput1');
+    this.mockConsole.expects('error').withExactArgs('%s: %s\n'.grey, 'output', 'failureoutput1');
 
     reporter.emit('end', true);
 
@@ -89,6 +88,7 @@ buster.testCase('console - _success _failure _end', {
     this.mockConsole.expects('error').withExactArgs('someerror2'.red);
 
     reporter.emit('end', false);
+
   }
 });
 

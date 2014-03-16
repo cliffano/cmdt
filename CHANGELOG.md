@@ -5,6 +5,7 @@
 * Change min node engine to >= 0.10.0
 * Fix failure debug should show up before summary
 * Add test execution directory to debug info
+* Add stdout and stderr test fields
 
 ### 0.0.5
 * Fix sample test file on README.

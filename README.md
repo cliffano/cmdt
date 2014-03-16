@@ -47,10 +47,11 @@ Set test command, expected exit code and/or output regular expression in a .yml 
     - command: time
       exitcode: 0
       output: real.+(\r\n?|\n)user.+
+      stdout: real.+(\r\n?|\n)user.+
 
     - command: unknowncommand
       exitcode: 1
-      output: ^some error$
+      stderr: ^some error$
 
 Parameters can also be specified, and used in test command:
 
@@ -92,7 +93,17 @@ Test Fields
   </tr>
   <tr>
     <td>output</td>
-    <td>stdout + stderr output, supports regexp matching</td>
+    <td>stdout + stderr output, regexp matching</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>stdout</td>
+    <td>stdout only output, regexp matching</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>stderr</td>
+    <td>stderr only output, regexp matching</td>
     <td>No</td>
   </tr>
 </table>
