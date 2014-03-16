@@ -6,6 +6,7 @@
 * Fix failure debug should show up before summary
 * Add test execution directory to debug info
 * Add stdout and stderr test fields
+* Add environment variables to test commands parameters
 
 ### 0.0.5
 * Fix sample test file on README.

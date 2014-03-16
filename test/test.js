@@ -7,8 +7,8 @@ var assert  = referee.assert;
 
 buster.testCase('test - load', {
   setUp: function () {
-    this.mockFs     = this.mock(fs);
-    this.mockYamljs = this.mock(yamljs);
+    this.mockFs      = this.mock(fs);
+    this.mockYamljs  = this.mock(yamljs);
 
     this.mockFs.expects('readFileSync').withExactArgs('somefile').returns('sometext');
   },
@@ -41,6 +41,20 @@ buster.testCase('test - load', {
       assert.isNull(err);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].command, 'echo "some message"');
+      done();
+    });
+  },
+  'should merge environment variable parameters into command': function (done) {
+    var data = [
+      { params: { message: 'some message' }},
+      { command: 'echo "{_env.foo}"', description: 'somedesc' }
+    ];
+    this.stub(process, 'env', { foo: 'bar' });
+    this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
+    test.load('somefile', function (err, tests) {
+      assert.isNull(err);
+      assert.equals(tests.length, 1);
+      assert.equals(tests[0].command, 'echo "bar"');
       done();
     });
   },

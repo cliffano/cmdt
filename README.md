@@ -67,6 +67,14 @@ Parameters can also be specified, and used in test command:
     - command: 'wget {url}'
       exitcode: 0
 
+Environment variables are available as _env parameter in test commands:
+
+    NAME="Theodore Twombly" cmdt run <file>.yml <dir>
+
+    - command: 'echo "Hello {_env.NAME}!"'
+      exitcode: 0
+      output: 'echo "Hello Theodore Twombly!"'
+
 Test Fields
 -----------
 
