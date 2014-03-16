@@ -1,4 +1,4 @@
-### 0.0.6-pre
+### 0.1.0-pre
 * Add parameter support for test commands
 * Cmdt no longer breaks when YAML file is empty
 * Fix test command execution error propagation
