@@ -208,18 +208,5 @@ buster.testCase('cmdt - _testCb', {
       output  : 'someoutput'
     };
     cmdt._testCb(test, done)();
-  },
-  'should pass test command execution error to callback': function (done) {
-    var test = { file: 'somefile3.yml', exitcode: 0, output: 'someotheroutput' };
-
-    var cmdt = new Cmdt();
-    cmdt._execData['somefile3.yml'] = {
-      exitcode: 0,
-      output  : 'someoutput'
-    };
-    cmdt._testCb(test, function (err) {
-      assert.equals(err.message, 'some error');
-      done();
-    })(new Error('some error'));
   }
 });
