@@ -26,12 +26,13 @@ buster.testCase('cmdt - init', {
 buster.testCase('cmdt - run', {
   setUp: function () {
     this.mockMkdirp   = this.mock(mkdirp);
+    this.mockNcp      = this.mock(ncp);
     this.mockRimraf   = this.mock(rimraf);
     this.mockReporter = this.mock(reporter);
     this.mockTest     = this.mock(test);
     this.mockTimer    = this.useFakeTimers();
   },
-  'should create run directory, emit to reporter, and clean up run directory': function (done) {
+  'should create run directory, test directory with fixtures, emit to reporter, and clean up run directory': function (done) {
 
     this.mockReporter.expects('emit').withArgs('dir', false, 'somebasedir/cmdt-1-' + process.pid);
     this.mockReporter.expects('emit').withExactArgs('segment', 'x.yml');
@@ -39,11 +40,16 @@ buster.testCase('cmdt - run', {
     this.mockReporter.expects('emit').withExactArgs('end', false);
 
     this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
+    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid + '/x.yml');
+    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid + '/y.yml');
     this.mockRimraf.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
 
-    this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, [], []);
+    this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, [], ['fixturedir1', 'fixturedir2']);
     this.mockTest.expects('load').withArgs('y.yml').callsArgWith(1, null, [], []);
     
+    this.mockNcp.expects('ncp').withArgs('fixturedir1').callsArgWith(2);
+    this.mockNcp.expects('ncp').withArgs('fixturedir2').callsArgWith(2);
+
     this.mockTimer.tick(1);
 
     var cmdt = new Cmdt({
@@ -67,7 +73,33 @@ buster.testCase('cmdt - run', {
     this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
     
     this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, [], []);
+    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid + '/x.yml');
     this.mockTest.expects('load').withArgs('y.yml').callsArgWith(1, new Error('some error'));
+
+    this.mockTimer.tick(1);
+
+    var cmdt = new Cmdt({
+      baseDir: 'somebasedir',
+      debug: false
+    });
+
+    cmdt.run([ 'x.yml', 'y.yml' ], function (err, result) {
+      assert.equals(err.message, 'some error');
+      done();
+    });
+  },
+  'should fixtures dir copying to callback': function (done) {
+
+    this.mockReporter.expects('emit').withArgs('dir', false, 'somebasedir/cmdt-1-' + process.pid);
+    this.mockReporter.expects('emit').withExactArgs('segment', 'x.yml');
+
+    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
+    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid + '/x.yml');
+
+    this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, [], ['fixturedir1', 'fixturedir2']);
+    
+    this.mockNcp.expects('ncp').withArgs('fixturedir1').callsArgWith(2);
+    this.mockNcp.expects('ncp').withArgs('fixturedir2').callsArgWith(2, new Error('some error'));
 
     this.mockTimer.tick(1);
 
@@ -89,6 +121,8 @@ buster.testCase('cmdt - run', {
     this.mockReporter.expects('emit').withExactArgs('end', true);
 
     this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
+    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid + '/x.yml');
+    this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid + '/y.yml');
 
     this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, [], []);
     this.mockTest.expects('load').withArgs('y.yml').callsArgWith(1, null, [], []);
@@ -113,7 +147,6 @@ buster.testCase('cmdt - _exec', {
   setUp: function () {
     this.mockChild   = this.mock(child);
     this.mockMkdirp  = this.mock(mkdirp);
-    this.mockNcp     = this.mock(ncp);
     this.mockTimer   = this.useFakeTimers();
   },
   'should register exit and stdout+stderr data event listeners': function (done) {
@@ -138,12 +171,9 @@ buster.testCase('cmdt - _exec', {
     };
 
     this.mockChild.expects('exec')
-      .withArgs('whoami', { cwd: 'somebasedir/cmdt-1-' + process.pid + '/file1.yml' })
+      .withArgs('whoami', { cwd: 'sometestdir' })
       .returns(mockExec);
 
-    this.mockNcp.expects('ncp').withArgs('somefixturedir1', 'somebasedir/cmdt-1-' + process.pid + '/file1.yml').callsArgWith(2);
-    this.mockNcp.expects('ncp').withArgs('somefixturedir2', 'somebasedir/cmdt-1-' + process.pid + '/file1.yml').callsArgWith(2);
-
     this.mockTimer.tick(1);
     
     var cmdt = new Cmdt({
@@ -154,30 +184,11 @@ buster.testCase('cmdt - _exec', {
     var tests = [
       { command: 'whoami', file: 'file1.yml', exitcode: 111 }
     ];
-    cmdt._exec(tests, ['somefixturedir1', 'somefixturedir2']);
-    assert.equals(cmdt._execData['file1.yml'].output, 'somestdoutdatasomestderrdata');
-    assert.equals(cmdt._execData['file1.yml'].stdout, 'somestdoutdata');
-    assert.equals(cmdt._execData['file1.yml'].stderr, 'somestderrdata');
+    cmdt._exec(tests, 'sometestdir');
+    assert.equals(cmdt._execData['0-file1.yml'].output, 'somestdoutdatasomestderrdata');
+    assert.equals(cmdt._execData['0-file1.yml'].stdout, 'somestdoutdata');
+    assert.equals(cmdt._execData['0-file1.yml'].stderr, 'somestderrdata');
     done();
-  },
-  'should pass error to callback when an error occurs while copying fixture directory': function (done) {
-
-    this.mockNcp.expects('ncp').withArgs('somefixturedir1', 'somebasedir/cmdt-1-' + process.pid + '/file1.yml').callsArgWith(2, new Error('some error'));
-
-    this.mockTimer.tick(1);
-    
-    var cmdt = new Cmdt({
-      baseDir: 'somebasedir',
-      runId: 'somerunid'
-    });
-
-    var tests = [
-      { command: 'whoami', file: 'file1.yml', exitcode: 111 }
-    ];
-    cmdt._exec(tests, ['somefixturedir1'], function (err) {
-      assert.equals(err.message, 'some error');
-      done();
-    });
   }
 });
 
@@ -186,24 +197,24 @@ buster.testCase('cmdt - _testCb', {
     this.mockReporter = this.mock(reporter);
   },
   'should emit success to reporter when there is no error': function (done) {
-    this.mockReporter.expects('emit').withExactArgs('success', { exitcode: 0, file: 'somefile1.yml', output: 'someoutput' }, { exitcode: 0, output: 'someoutput' });
+    this.mockReporter.expects('emit').withExactArgs('success', { execId: '222-somefile1.yml', exitcode: 0, file: 'somefile1.yml', output: 'someoutput' }, { exitcode: 0, output: 'someoutput' });
 
-    var test = { file: 'somefile1.yml', exitcode: 0, output: 'someoutput' };
+    var test = { execId: '222-somefile1.yml', file: 'somefile1.yml', exitcode: 0, output: 'someoutput' };
 
     var cmdt = new Cmdt();
-    cmdt._execData['somefile1.yml'] = {
+    cmdt._execData['222-somefile1.yml'] = {
       exitcode: 0,
       output  : 'someoutput'
     };
     cmdt._testCb(test, done)();
   },
   'should emit failure to reporter when there is an error': function (done) {
-    this.mockReporter.expects('emit').withExactArgs('failure', ['Output does not match expected regexp \'someotheroutput\''], { exitcode: 0, file: 'somefile2.yml', output: 'someotheroutput' }, { exitcode: 0, output: 'someoutput' });
+    this.mockReporter.expects('emit').withExactArgs('failure', ['Output does not match expected regexp \'someotheroutput\''], { execId: '333-somefile2.yml', exitcode: 0, file: 'somefile2.yml', output: 'someotheroutput' }, { exitcode: 0, output: 'someoutput' });
 
-    var test = { file: 'somefile2.yml', exitcode: 0, output: 'someotheroutput' };
+    var test = { execId: '333-somefile2.yml', file: 'somefile2.yml', exitcode: 0, output: 'someotheroutput' };
 
     var cmdt = new Cmdt();
-    cmdt._execData['somefile2.yml'] = {
+    cmdt._execData['333-somefile2.yml'] = {
       exitcode: 0,
       output  : 'someoutput'
     };

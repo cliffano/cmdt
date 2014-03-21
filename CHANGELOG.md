@@ -1,5 +1,6 @@
 ### 0.1.1-pre
-*
+* Fix fixtures directories should be copied once per test file
+* Fix test result checking, test execution data is now stored per file per command
 
 ### 0.1.0
 * Add parameter support for test commands
