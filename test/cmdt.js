@@ -58,7 +58,7 @@ buster.testCase('cmdt - run', {
     });
 
     cmdt.run([ 'x.yml', 'y.yml' ], function (err, result) {
-      assert.isNull(err);
+      assert.equals(err, undefined);
       assert.defined(result.successes);
       assert.defined(result.failures);
       done();
@@ -135,7 +135,7 @@ buster.testCase('cmdt - run', {
     });
 
     cmdt.run([ 'x.yml', 'y.yml' ], function (err, result) {
-      assert.isNull(err);
+      assert.equals(err, undefined);
       assert.defined(result.successes);
       assert.defined(result.failures);
       done();

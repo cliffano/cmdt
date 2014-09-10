@@ -16,7 +16,7 @@ buster.testCase('test - load', {
     var data = [{ command: 'whoami', description: 'somedesc' }];
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
     test.load('somefile', function (err, tests, fixtures) {
-      assert.isNull(err);
+      assert.equals(err, undefined);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].file, 'somefile');
       assert.equals(fixtures, []);
@@ -27,7 +27,7 @@ buster.testCase('test - load', {
     var data = [{ fixtures: ['somefixturedir1', 'somefixturedir2'] }, { command: 'whoami', description: 'somedesc' }];
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
     test.load('somefile', function (err, tests, fixtures) {
-      assert.isNull(err);
+      assert.equals(err, undefined);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].file, 'somefile');
       assert.equals(fixtures, ['somefixturedir1', 'somefixturedir2']);
@@ -51,7 +51,7 @@ buster.testCase('test - load', {
     ];
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
     test.load('somefile', function (err, tests, fixtures) {
-      assert.isNull(err);
+      assert.equals(err, undefined);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].command, 'echo "some message"');
       assert.equals(fixtures, []);
@@ -66,7 +66,7 @@ buster.testCase('test - load', {
     this.stub(process, 'env', { foo: 'bar' });
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
     test.load('somefile', function (err, tests, fixtures) {
-      assert.isNull(err);
+      assert.equals(err, undefined);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].command, 'echo "bar"');
       assert.equals(fixtures, []);
@@ -79,7 +79,7 @@ buster.testCase('test - load', {
     ];
     this.mockYamljs.expects('load').withExactArgs('sometext').returns(data);
     test.load('somefile', function (err, tests, fixtures) {
-      assert.isNull(err);
+      assert.equals(err, undefined);
       assert.equals(tests.length, 1);
       assert.equals(tests[0].command, 'echo ""');
       assert.equals(fixtures, []);
