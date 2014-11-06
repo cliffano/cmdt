@@ -4,6 +4,9 @@ var referee = require('referee');
 var assert  = referee.assert;
 
 buster.testCase('checker - _checkExitCode', {
+  setUp: function () {
+    this.mock({});
+  },
   'should return error when test result exit code does not match expected exit code': function () {
     var result = { exitcode: 1 };
     var test   = { exitcode: 0 };
@@ -26,6 +29,9 @@ buster.testCase('checker - _checkExitCode', {
 });
 
 buster.testCase('checker - _checkOutput', {
+  setUp: function () {
+    this.mock({});
+  },
   'should return error when test result output does not match expected output': function () {
     var result = { output: 'Hello world' };
     var test   = { output: 'Foo Bar' };

@@ -10,6 +10,9 @@ var test     = require('../lib/test');
 var assert   = referee.assert;
 
 buster.testCase('cmdt - init', {
+  setUp: function () {
+    this.mock({});
+  },
   'should delegate to ncp ncp when initialising the project': function (done) {
     this.stub(ncp, 'ncp', function (source, dest, cb) {
       assert.isTrue(source.match(/.+\/cmdt\/examples$/).length === 1);
