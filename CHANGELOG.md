@@ -1,5 +1,5 @@
 ### 0.1.2-pre
-*
+* Fix undefined message on error logging
 
 ### 0.1.1
 * Fix fixtures directories should be copied once per test file
