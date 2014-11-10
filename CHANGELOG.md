@@ -1,5 +1,5 @@
 ### 0.1.3-pre
-*
+* Add fixture file support
 
 ### 0.1.2
 * Fix undefined message on error logging

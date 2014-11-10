@@ -1,6 +1,8 @@
 var child    = require('child_process');
 var Cmdt     = require('../lib/cmdt');
 var buster   = require('buster-node');
+var fs       = require('fs');
+var fsx      = require('fs-extra');
 var mkdirp   = require('mkdirp');
 var ncp      = require('ncp');
 var referee  = require('referee');
@@ -28,6 +30,8 @@ buster.testCase('cmdt - init', {
 
 buster.testCase('cmdt - run', {
   setUp: function () {
+    this.mockFs       = this.mock(fs);
+    this.mockFsx      = this.mock(fsx);
     this.mockMkdirp   = this.mock(mkdirp);
     this.mockNcp      = this.mock(ncp);
     this.mockRimraf   = this.mock(rimraf);
@@ -47,11 +51,25 @@ buster.testCase('cmdt - run', {
     this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid + '/y.yml');
     this.mockRimraf.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid);
 
-    this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, [], ['fixturedir1', 'fixturedir2']);
+    this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, [], ['fixturedir1', 'fixturedir2', 'fixturefile1']);
     this.mockTest.expects('load').withArgs('y.yml').callsArgWith(1, null, [], []);
     
-    this.mockNcp.expects('ncp').withArgs('fixturedir1').callsArgWith(2);
-    this.mockNcp.expects('ncp').withArgs('fixturedir2').callsArgWith(2);
+    var mockStatIsDir = {
+      isDirectory: function () {
+        return true;
+      }
+    };
+    var mockStatIsFile = {
+      isDirectory: function () {
+        return false;
+      }
+    };
+    this.mockFs.expects('lstatSync').withExactArgs('fixturedir1').returns(mockStatIsDir);
+    this.mockFs.expects('lstatSync').withExactArgs('fixturedir2').returns(mockStatIsDir);
+    this.mockFs.expects('lstatSync').withExactArgs('fixturefile1').returns(mockStatIsFile);
+    this.mockFsx.expects('copy').withArgs('fixturedir1', 'somebasedir/cmdt-1-' + process.pid + '/x.yml').callsArgWith(2);
+    this.mockFsx.expects('copy').withArgs('fixturedir2', 'somebasedir/cmdt-1-' + process.pid + '/x.yml').callsArgWith(2);
+    this.mockFsx.expects('copy').withArgs('fixturefile1', 'somebasedir/cmdt-1-' + process.pid + '/x.yml/fixturefile1').callsArgWith(2);
 
     this.mockTimer.tick(1);
 
@@ -91,7 +109,7 @@ buster.testCase('cmdt - run', {
       done();
     });
   },
-  'should fixtures dir copying to callback': function (done) {
+  'should pass error to callback on fixtures dir copying': function (done) {
 
     this.mockReporter.expects('emit').withArgs('dir', false, 'somebasedir/cmdt-1-' + process.pid);
     this.mockReporter.expects('emit').withExactArgs('segment', 'x.yml');
@@ -100,9 +118,16 @@ buster.testCase('cmdt - run', {
     this.mockMkdirp.expects('sync').withExactArgs('somebasedir/cmdt-1-' + process.pid + '/x.yml');
 
     this.mockTest.expects('load').withArgs('x.yml').callsArgWith(1, null, [], ['fixturedir1', 'fixturedir2']);
-    
-    this.mockNcp.expects('ncp').withArgs('fixturedir1').callsArgWith(2);
-    this.mockNcp.expects('ncp').withArgs('fixturedir2').callsArgWith(2, new Error('some error'));
+
+    var mockStat = {
+      isDirectory: function () {
+        return true;
+      }
+    };
+    this.mockFs.expects('lstatSync').withExactArgs('fixturedir1').returns(mockStat);
+    this.mockFs.expects('lstatSync').withExactArgs('fixturedir2').returns(mockStat);
+    this.mockFsx.expects('copy').withArgs('fixturedir1', 'somebasedir/cmdt-1-' + process.pid + '/x.yml').callsArgWith(2);
+    this.mockFsx.expects('copy').withArgs('fixturedir2', 'somebasedir/cmdt-1-' + process.pid + '/x.yml').callsArgWith(2, new Error('some error'));
 
     this.mockTimer.tick(1);
 

@@ -77,11 +77,15 @@ Environment variables are available as _env parameter in test commands:
 
 Test fixtures files and directories can be specified in fixtures array, which will then be copied to test execution directory:
 
-    # assuming path/to/data_dir/foobar.txt exists
+    # assuming path/to/data_dir/foobar.txt and path/to/another_dir/barfoo.txt exist
     - fixtures:
       - path/to/data_dir
+      - path/to/another_dir/barfoo.txt
 
-    - command: 'cat foobar.txt'
+    - command: 'file foobar.txt'
+      exitcode: 0
+
+    - command: 'file barfoo.txt'
       exitcode: 0
 
 Test Fields
