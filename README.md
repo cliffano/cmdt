@@ -134,3 +134,8 @@ Screenshots
 
 ![Success with directory arg screenshot](../master/screenshots/success-dir.jpg?raw=true)
 ![Failure with file arg on debug mode screenshot](../master/screenshots/failure-file-debug.jpg?raw=true)
+
+Colophon
+--------
+
+[Developer's Guide](http://cliffano.github.io/developers_guide.html#nodejs)
