@@ -31,20 +31,20 @@
     "test": "./test"
   },
   "dependencies": {
-    "async": "~0.9.0",
-    "bagofcli": "~0.2.1",
-    "colors": "~1.0.3",
-    "fs-extra": "~0.16.3",
-    "jazz": "~0.0.18",
-    "lodash": "~3.1.0",
-    "mkdirp": "~0.5.0",
-    "ncp": "~1.0.1",
-    "rimraf": "~2.2.8",
-    "yaml-js": "~0.1.0"
+    "async": "^0.9.0",
+    "bagofcli": "^0.2.1",
+    "colors": "^1.1.0",
+    "fs-extra": "^0.18.2",
+    "jazz": "^0.0.18",
+    "lodash": "^3.7.0",
+    "mkdirp": "^0.5.0",
+    "ncp": "^2.0.0",
+    "rimraf": "^2.3.2",
+    "yaml-js": "^0.1.0"
   },
   "devDependencies": {
-    "buster-node": "~0.7.0",
-    "referee": "~1.1.1"
+    "buster-node": "^0.7.1",
+    "referee": "^1.1.1"
   },
   "scripts": {},
   "engines": {
