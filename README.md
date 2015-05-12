@@ -1,7 +1,7 @@
 <img align="right" src="https://raw.github.com/cliffano/cmdt/master/avatar.jpg" alt="Avatar"/>
 
-[![Build Status](https://secure.travis-ci.org/cliffano/cmdt.png?branch=master)](http://travis-ci.org/cliffano/cmdt)
-[![Dependencies Status](https://david-dm.org/cliffano/cmdt.png)](http://david-dm.org/cliffano/cmdt)
+[![Build Status](https://img.shields.io/travis/cliffano/cmdt.svg)](http://travis-ci.org/cliffano/cmdt)
+[![Dependencies Status](https://img.shields.io/david/cliffano/cmdt.svg)](http://david-dm.org/cliffano/cmdt)
 [![Coverage Status](https://coveralls.io/repos/cliffano/cmdt/badge.png?branch=master)](https://coveralls.io/r/cliffano/cmdt?branch=master)
 [![Published Version](https://badge.fury.io/js/cmdt.png)](http://badge.fury.io/js/cmdt)
 <br/>
