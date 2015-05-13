@@ -2,8 +2,8 @@
 
 [![Build Status](https://img.shields.io/travis/cliffano/cmdt.svg)](http://travis-ci.org/cliffano/cmdt)
 [![Dependencies Status](https://img.shields.io/david/cliffano/cmdt.svg)](http://david-dm.org/cliffano/cmdt)
-[![Coverage Status](https://coveralls.io/repos/cliffano/cmdt/badge.png?branch=master)](https://coveralls.io/r/cliffano/cmdt?branch=master)
-[![Published Version](https://badge.fury.io/js/cmdt.png)](http://badge.fury.io/js/cmdt)
+[![Coverage Status](https://img.shields.io/coveralls/cliffano/cmdt.svg)](https://coveralls.io/r/cliffano/cmdt?branch=master)
+[![Published Version](https://img.shields.io/npm/v/cmdt.svg)](http://www.npmjs.com/package/cmdt)
 <br/>
 [![npm Badge](https://nodei.co/npm/cmdt.png)](http://npmjs.org/package/cmdt)
 
