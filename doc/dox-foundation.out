@@ -1,0 +1,4 @@
+[ 'lib/checker.js',
+  'lib/cli.js',
+  'lib/cmdt.js',
+  'lib/reporters/console.js' ]

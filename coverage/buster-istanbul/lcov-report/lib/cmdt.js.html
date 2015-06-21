@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/cmdt.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../prettify.css">
+    <link rel="stylesheet" href="../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">lib/cmdt.js</span></h1>
+    <h2>
+        Statements: <span class="metric">100% <small>(78 / 78)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(18 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(17 / 17)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(78 / 78)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">lib/</a> &#187; cmdt.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span></td><td class="text"><pre class="prettyprint lang-js">var async    = require('async');
+var checker  = require('./checker');
+var child    = require('child_process');
+var colors   = require('colors');
+var fs       = require('fs');
+var fsx      = require('fs-extra');
+var mkdirp   = require('mkdirp');
+var ncp      = require('ncp');
+var os       = require('os');
+var p        = require('path');
+var reporter = require('./reporters/console');
+var rimraf   = require('rimraf');
+var test     = require('./test');
+var util     = require('util');
+&nbsp;
+/**
+ * class Cmdt
+ */
+function Cmdt(opts) {
+&nbsp;
+  this.opts         = opts || {};
+  this.opts.baseDir = this.opts.baseDir || os.tmpdir();
+  this.opts.debug   = this.opts.debug || false;
+  this.runId        = 'cmdt-' + new Date().getTime() + '-' + process.pid;
+  this._execData    = {};
+}
+&nbsp;
+/**
+ * Create example cmdt test files.
+ *
+ * @param {Function} cb: standard cb(err, result) callback
+ */
+Cmdt.prototype.init = function (cb) {
+  ncp.ncp(p.join(__dirname, '../examples'), '.', cb);
+};
+&nbsp;
+/**
+ * Parse .cmdt test files and run all tests.
+ *
+ * @param {Array} files: test files to run
+ * @param {Function} cb: standard cb(err, result) callback
+ */
+Cmdt.prototype.run = function (files, cb) {
+&nbsp;
+  var runDir = p.join(this.opts.baseDir, this.runId);
+  var self   = this;
+&nbsp;
+  reporter.emit('dir', this.opts.debug, runDir);
+  mkdirp.sync(runDir);
+&nbsp;
+  function copyFixture(testDir) {
+    return function (fixturePath, cb) {
+      var destPath = fs.lstatSync(fixturePath).isDirectory() ? testDir : p.join(testDir, p.basename(fixturePath));
+      fsx.copy(fixturePath, destPath, cb);
+    };
+  }
+&nbsp;
+  function execTests(tests, testDir, cb) {
+    return function (err) {
+      if (err) {
+        cb(err);
+      } else {
+        self._exec(tests, testDir, cb);
+      }
+    };
+  }
+&nbsp;
+  function iter(file, cb) {
+&nbsp;
+    reporter.emit('segment', file);
+    
+    test.load(file, function (err, tests, fixtures) {
+&nbsp;
+      if (err) {
+        cb(err);
+&nbsp;
+      } else {
+        var testDir = p.join(self.opts.baseDir, self.runId, file);
+        mkdirp.sync(testDir);
+        async.each(fixtures, copyFixture(testDir), execTests(tests, testDir, cb));
+      }
+    });
+  }
+&nbsp;
+  async.eachSeries(files, iter, function (err) {
+    if (!err) {
+      reporter.emit('end', self.opts.debug);
+      if (!self.opts.debug) {
+        rimraf.sync(runDir);
+      }
+    }
+    cb(err, { successes: reporter.successes, failures: reporter.failures });
+  });
+};
+&nbsp;
+/**
+ * Execute test command and validate output of each test.
+ * Commands will be executed in a sandbox directory.
+ *
+ * @param {Array} tests: test settings
+ * @param {String} testDir: test execution directory
+ * @param {Function} cb: standard cb(err, result) callback
+ */
+Cmdt.prototype._exec = function (tests, testDir, cb) {
+&nbsp;
+  this._execData = {};
+&nbsp;
+  var self   = this;
+  var testId = 0; // unique ID for each test within the file
+&nbsp;
+  function processTest(test, cb) {
+&nbsp;
+    test.dir    = testDir;
+    test.execId = util.format('%d-%s', testId++, test.file);
+&nbsp;
+    self._execData[test.execId] = {
+      exitcode: undefined,
+      output  : '',
+      stdout  : '',
+      stderr  : ''
+    };
+&nbsp;
+    var _exec = child.exec(test.command, { cwd: test.dir }, self._testCb(test, cb));
+&nbsp;
+    _exec.on('exit', function (code) {
+      self._execData[test.execId].exitcode = code;
+    });
+    _exec.stdout.on('data', function (data) {
+      self._execData[test.execId].output += data;
+      self._execData[test.execId].stdout += data;
+    });
+    _exec.stderr.on('data', function (data) {
+      self._execData[test.execId].output += data;
+      self._execData[test.execId].stderr += data;
+    });
+  }
+  
+  async.eachSeries(tests, processTest, cb);
+};
+&nbsp;
+/**
+ * Create a callback function for processing each test.
+ * This callback emits event to reporter depending on the existence of check error(s) .
+ *
+ * @param {Object} test: test setting
+ * @param {Function} cb: standard cb(err, result) callback
+ */
+Cmdt.prototype._testCb = function (test, cb) {
+&nbsp;
+  var self = this;
+&nbsp;
+  return function (err) {
+&nbsp;
+    var result = self._execData[test.execId];
+    var errors = checker.check(result, test);
+&nbsp;
+    if (errors.length === 0) {
+      reporter.emit('success', test, result);
+    } else {
+      reporter.emit('failure', errors, test, result);
+    }
+    cb();
+  };
+};
+&nbsp;
+module.exports = Cmdt;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Jun 21 2015 12:43:27 GMT+1000 (AEST)</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
