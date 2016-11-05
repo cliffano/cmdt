@@ -31,12 +31,12 @@
     "test": "./test"
   },
   "dependencies": {
-    "async": "^2.1.1",
+    "async": "^2.1.2",
     "bagofcli": "^1.0.0",
     "colors": "^1.1.2",
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^1.0.0",
     "jazz": "^0.0.18",
-    "lodash": "^4.16.4",
+    "lodash": "^4.16.6",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
     "rimraf": "^2.5.4",
