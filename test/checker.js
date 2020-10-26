@@ -37,7 +37,7 @@ buster.testCase('checker - _checkOutput', {
     var test   = { output: 'Foo Bar' };
     var errors = checker.check(result, test);
     assert.equals(errors.length, 1);
-    assert.equals(errors[0], 'Output does not match expected regexp \'Foo Bar\'');
+    assert.equals(errors[0], 'Output: \'Hello world\' does not match expected regexp \'Foo Bar\'');
   },
   'should return no error when there is no expectation': function () {
     var result = { output: 'Hello world' };
