@@ -237,7 +237,7 @@ buster.testCase('cmdt - _testCb', {
     cmdt._testCb(test, done)();
   },
   'should emit failure to reporter when there is an error': function (done) {
-    this.mockReporter.expects('emit').withExactArgs('failure', ['Output does not match expected regexp \'someotheroutput\''], { execId: '333-somefile2.yml', exitcode: 0, file: 'somefile2.yml', output: 'someotheroutput' }, { exitcode: 0, output: 'someoutput' });
+    this.mockReporter.expects('emit').withExactArgs('failure', ['Output: \'someoutput\' does not match expected regexp \'someotheroutput\''], { execId: '333-somefile2.yml', exitcode: 0, file: 'somefile2.yml', output: 'someotheroutput' }, { exitcode: 0, output: 'someoutput' });
 
     var test = { execId: '333-somefile2.yml', file: 'somefile2.yml', exitcode: 0, output: 'someotheroutput' };
 
